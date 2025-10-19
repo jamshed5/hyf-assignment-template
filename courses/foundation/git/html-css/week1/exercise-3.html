@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise-3</title>
+
+    <!-- Normalize CSS from CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"
+        integrity="sha512-oHDEc8Xed4z14Oyfsh6Ef5JXg7rZJkN1b8B0TQxT8V+UVUZ1Fpk7Vo0rFlg6qpI9V2YHYRmg2iZ8a2JZHY9+hQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="exercise-3.css">
+</head>
+
+<body>
+    <!-- header -->
+    <header>
+        <h1>My Blog</h1>
+        <h2>Sketching & Artwork</h2>
+    </header>
+
+    <!-- main -->
+    <main>
+        <!-- featured article -->
+        <section id="featured">
+            <h2>Featured Article</h2>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, voluptate.
+            </p>
+        </section>
+
+        <!-- recent posts -->
+        <section id="recent-posts">
+            <h2>Recent Posts</h2>
+            <ul>
+                <li><a href="#.">Lorem ipsum dolor sit amet.</a></li>
+                <li><a href="#.">Lorem ipsum dolor sit amet.</a></li>
+                <li><a href="#.">Lorem ipsum dolor sit amet.</a></li>
+                <li><a href="#.">Lorem ipsum dolor sit amet.</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- aside -->
+    <aside>
+        <h2>About Me</h2>
+        <p>
+            Hi! I’m <strong>Jamshed Ali</strong>, Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
+            optio expedita odio exercitationem suscipit, ex beatae nisi ipsam unde totam cumque, fugiat sit soluta
+            incidunt iusto voluptatum est enim debitis! Ipsa veritatis nostrum architecto molestias sunt commodi
+            distinctio, error ipsam reiciendis eaque voluptas autem, tenetur officiis cumque rerum illo reprehenderit.
+        </p>
+    </aside>
+
+    <!-- footer -->
+    <footer>
+        <p>&copy; <span id="year"></span> Jamshed Ali. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // automatically update current year in footer
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+</body>
+
+</html>
