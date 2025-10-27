@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise-2</title>
+    
+    <!-- Normalize CSS from CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"
+        integrity="sha512-oHDEc8Xed4z14Oyfsh6Ef5JXg7rZJkN1b8B0TQxT8V+UVUZ1Fpk7Vo0rFlg6qpI9V2YHYRmg2iZ8a2JZHY9+hQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="exercise-2.css">
+</head>
+
+<body>
+    <h1>Contact Us</h1>
+    <form action="#" method="post">
+        <!-- dropdown -->
+        <label for="title">Title</label>
+        <select id="title" name="title" required>
+            <option value="">-- Select Title --</option>
+            <option value="Mr">Mr</option>
+            <option value="Ms">Ms</option>
+            <option value="Mrs">Mrs</option>
+            <option value="Miss">Miss</option>
+            <option value="Dr">Dr</option>
+            <option value="Sir">Sir</option>
+        </select>
+
+        <!-- first Name -->
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+
+        <!-- last Name -->
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastName" placeholder="Enter your last name">
+
+        <!-- email -->
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+        <!-- message -->
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="4" placeholder="Type your message here..."></textarea>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+</html>
