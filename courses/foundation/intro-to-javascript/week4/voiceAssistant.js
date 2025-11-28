@@ -1,14 +1,11 @@
-// global variables
+const todos = [];  // declear const
 let userName = "";
-let todos = [];
 let timerId = null;
 
-function getReply(command) {
-  command = command.trim();
-
-  // name handling
-  if (command.startsWith("Hello my name is")) {
-    const name = command.replace("Hello my name is", "").trim();
+// handle name
+function handleName(cmd, original) {
+  if (cmd.startsWith("hello my name is")) {
+    const name = original.slice("Hello my name is".length).trim();
 
     if (userName.toLowerCase() === name.toLowerCase()) {
       return `I already know your name is ${userName}.`;
@@ -18,21 +15,26 @@ function getReply(command) {
     return `Nice to meet you ${userName}`;
   }
 
-  if (command === "What is my name?" || command === "What is my name") {
+  if (cmd === "what is my name?" || cmd === "what is my name") {
     if (!userName) return "I don't know your name yet.";
     return `Your name is ${userName}`;
   }
 
-  // todo handling
-  if (command.startsWith("Add ") && command.endsWith(" to my todo")) {
-    const item = command.replace("Add ", "").replace(" to my todo", "");
+  return null;
+}
+
+// handle todo
+function handleTodo(cmd, original) {
+  if (cmd.startsWith("add ") && cmd.endsWith(" to my todo")) {
+    const item = original.slice(4, original.length - " to my todo".length);
     todos.push(item);
     return `${item} added to your todo`;
   }
 
-  if (command.startsWith("Remove ") && command.endsWith(" from my todo")) {
-    const item = command.replace("Remove ", "").replace(" from my todo", "");
+  if (cmd.startsWith("remove ") && cmd.endsWith(" from my todo")) {
+    const item = original.slice(7, original.length - " from my todo".length);
     const index = todos.indexOf(item);
+
     if (index !== -1) {
       todos.splice(index, 1);
       return `Removed ${item} from your todo`;
@@ -40,18 +42,22 @@ function getReply(command) {
     return `${item} was not found on your todo list`;
   }
 
-  if (command === "What is on my todo?" || command === "What is on my todo") {
+  if (cmd === "what is on my todo?" || cmd === "what is on my todo") {
     if (todos.length === 0) return "Your todo list is empty.";
     if (todos.length === 1) return `You have 1 todo: ${todos[0]}`;
     return `You have ${todos.length} todos - ${todos.join(" and ")}`;
   }
 
-  // date handling
-  if (command === "What day is it today?") {
+  return null;
+}
+
+// handle date
+function handleDate(cmd) {
+  if (cmd === "what day is it today?") {
     const today = new Date();
     const day = today.getDate();
     const year = today.getFullYear();
-    const monthNames = [
+    const months = [
       "January",
       "February",
       "March",
@@ -65,25 +71,60 @@ function getReply(command) {
       "November",
       "December",
     ];
-    return `${day}. of ${monthNames[today.getMonth()]} ${year}`;
+    return `${day}. of ${months[today.getMonth()]} ${year}`;
   }
 
-  // math handling
-  if (command.startsWith("What is")) {
-    const math = command.replace("What is", "").trim().replace("?", "");
+  return null;
+}
 
-    try {
-      const result = eval(math);
-      if (!isNaN(result)) return result.toString();
-    } catch {
-      return "I cannot calculate that.";
+// handle math
+function handleMath(cmd, original) {
+  if (!cmd.startsWith("what is")) return null;
+
+  const expression = original
+    .slice("What is".length)
+    .trim()
+    .replace("?", "")
+    .trim();
+
+  const operators = ["+", "-", "*", "/"];
+
+  for (const op of operators) {
+    if (expression.includes(op)) {
+      const parts = expression.split(op).map((p) => p.trim());
+      if (parts.length !== 2) return "I cannot calculate that.";
+
+      const left = Number(parts[0]);
+      const right = Number(parts[1]);
+
+      if (isNaN(left) || isNaN(right)) return "I cannot calculate that.";
+
+      switch (op) {
+        case "+":
+          return (left + right).toString();
+        case "-":
+          return (left - right).toString();
+        case "*":
+          return (left * right).toString();
+        case "/":
+          return right === 0
+            ? "Cannot divide by zero."
+            : (left / right).toString();
+      }
     }
   }
 
-  // timer
-  if (command.startsWith("Set a timer for")) {
-    const minutesStr = command
-      .replace("Set a timer for", "")
+  return "I cannot calculate that.";
+}
+
+// handle timer
+function handleTimer(cmd) {
+  const SECONDS_PER_MINUTE = 60;
+  const MS_PER_SECOND = 1000;
+
+  if (cmd.startsWith("set a timer for")) {
+    const minutesStr = cmd
+      .replace("set a timer for", "")
       .replace("minutes", "")
       .trim();
     const minutes = Number(minutesStr);
@@ -92,25 +133,47 @@ function getReply(command) {
 
     if (timerId) clearTimeout(timerId);
 
-    timerId = setTimeout(() => {
-      console.log("Timer done");
-    }, minutes * 60 * 1000);
+    timerId = setTimeout(
+      () => console.log("Timer done"),
+      minutes * SECONDS_PER_MINUTE * MS_PER_SECOND
+    );
 
     return `Timer set for ${minutes} minutes`;
   }
 
-  // extra
-  if (command === "How many todos do I have?") {
+  return null;
+}
+
+function handleExtra(cmd) {
+  if (cmd === "how many todos do i have?") {
     return `You have ${todos.length} todos.`;
   }
 
-  // unknow cmd
-  return "I don't understand that command.";
+  return null;
+}
+
+// mainfun getReply
+function getReply(command) {
+  const original = command.trim();
+  const cmd = original.toLowerCase();
+
+  return (
+    handleName(cmd, original) ||
+    handleTodo(cmd, original) ||
+    handleDate(cmd) ||
+    handleMath(cmd, original) ||
+    handleTimer(cmd) ||
+    handleExtra(cmd) ||
+    "I don't understand that command."
+  );
 }
 
 // testing
 console.log(getReply("Hello my name is Benjamin"));
 console.log(getReply("What is my name?"));
 console.log(getReply("Add fishing to my todo"));
+console.log(getReply("Remove fishing from my todo"));
+console.log("Todos: ", todos);
 console.log(getReply("What is 4 * 12?"));
+console.log(getReply("What is 12 - 4?"));
 console.log(getReply("Set a timer for 1 minutes"));
