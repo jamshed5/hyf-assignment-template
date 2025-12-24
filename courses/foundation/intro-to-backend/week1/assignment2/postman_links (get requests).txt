@@ -1,0 +1,14 @@
+Get 5 random dog images (any breed)
+https://dog.ceo/api/breeds/image/random/5
+
+List all the dog breeds
+https://dog.ceo/api/breeds/list/all
+
+Get 3 dog images from the "beagle" breed
+https://dog.ceo/api/breed/beagle/images/random/3
+
+List all the sub-breeds of the poodle
+https://dog.ceo/api/breed/poodle/list
+
+Get all the dog images from the "toy poodle" sub breed
+https://dog.ceo/api/breed/poodle/toy/images
