@@ -1,7 +1,7 @@
 import express, { response } from "express";
 import db from "./db/db_connection.js";
-import usersRouter from "./routes/users.js";
-import tasksRouter from "./routes/tasks.js";
+import usersRouter from "./routes/user_routes.js";
+import tasksRouter from "./routes/task_routes.js";
 
 
 const app = express();
