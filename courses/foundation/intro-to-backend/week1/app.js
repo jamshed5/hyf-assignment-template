@@ -1,24 +1,28 @@
-import express, { response } from "express";
+// Import Express framework
+import express from "express";
+
+// Import database connection (currently unused in this snippet, but required for models)
 import db from "./db/db_connection.js";
-import usersRouter from "./routes/user_routes.js";
-import tasksRouter from "./routes/task_routes.js";
 
+// Import routers for users and tasks
+import usersRouter from "./routes/userRoutes.js";
+import tasksRouter from "./routes/taskRoutes.js";
 
+// Create Express app instance
 const app = express();
 const port = 3000;
 
-// middleware
+// Middleware: Parse JSON bodies
 app.use(express.json());
 
-// serve static HTML
+// Middleware: Serve static files from the "public" folder
 app.use(express.static("public"));
 
-// routes
-app.use("/users/", usersRouter);   // all user-related routes
-app.use("/tasks/", tasksRouter);   // all task-related routes
+// Mount routers
+app.use("/users/", usersRouter);   // All user-related routes
+app.use("/tasks/", tasksRouter);   // All task-related routes
 
-
+// Start the server and listen on specified port
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
-

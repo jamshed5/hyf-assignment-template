@@ -1,17 +1,24 @@
+// Import database connection
 import db from "../db/db_connection.js";
 
-// models
+// Model: Fetch all tasks
 export const getAllTasks = async () => {
+  // Execute raw SQL to get all tasks
   const rows = await db.raw("SELECT * FROM task");
   return rows;
 };
 
+// Model: Fetch the most recently created task
 export const getMostRecentTask = async () => {
+  // Execute raw SQL to get the latest task by creation date
   const row = await db.raw("SELECT * FROM task ORDER BY created DESC LIMIT 1");
   return row;
 };
 
+// Model: Fetch all completed (done) tasks with status and user info
 export const getDoneTasks = async () => {
+  // Execute raw SQL to get tasks where status_id = 3
+  // Join with user and status tables to get extra details
   const rows = await db.raw(`
     SELECT 
       task.title,

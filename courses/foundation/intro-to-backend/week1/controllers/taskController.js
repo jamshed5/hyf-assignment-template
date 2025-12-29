@@ -1,14 +1,12 @@
-import express from "express";
+// Import task-related database model functions
 import {
   getAllTasks,
   getMostRecentTask,
   getDoneTasks,
-} from "../models/task_models.js";
+} from "../models/taskModels.js";
 
-const router = express.Router();
-
-// Get all tasks
-router.get("/", async (req, res) => {
+// Controller: Fetch all tasks
+export const getTasks = async (req, res) => {
   try {
     const tasks = await getAllTasks();
     res.json(tasks);
@@ -16,10 +14,10 @@ router.get("/", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Failed to fetch tasks" });
   }
-});
+};
 
-// Recently created task
-router.get("/recent", async (req, res) => {
+// Controller: Fetch the most recently created task
+export const getRecentTask = async (req, res) => {
   try {
     const task = await getMostRecentTask();
     res.json(task);
@@ -27,10 +25,10 @@ router.get("/recent", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Failed to fetch recent task" });
   }
-});
+};
 
-// All done tasks
-router.get("/done", async (req, res) => {
+// Controller: Fetch all completed (done) tasks
+export const getDoneTasksController = async (req, res) => {
   try {
     const tasks = await getDoneTasks();
     res.json(tasks);
@@ -38,6 +36,4 @@ router.get("/done", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Failed to fetch done tasks" });
   }
-});
-
-export default router;
+};
