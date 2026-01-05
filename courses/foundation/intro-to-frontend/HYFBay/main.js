@@ -1,11 +1,34 @@
-console.log("Script loaded");
+const products = getAvailableProducts(); // This comes from hyfBayHelpers.js
 
-const products = getAvailableProducts();
-console.log(products);
+const productList = document.querySelector("#productList");
+const searchInput = document.querySelector("#searchInput");
+const searchButton = document.querySelector("#searchButton");
 
-// This should create the ul and the li's with the individual products details
-function renderProducts(products) {
-  // your code goes here
+// Function to render products
+function renderProducts(productsToRender) {
+  productList.innerHTML = "";
+
+  productsToRender.forEach((product) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <strong>${product.name}</strong>
+      <span>Price: ${product.price} kr</span>
+      <span>Rating: ${product.rating}</span>
+    `;
+    productList.appendChild(li);
+  });
 }
 
-renderProducts(products); 
+// Initial render: display all products
+renderProducts(products);
+
+// Search functionality
+searchButton.addEventListener("click", () => {
+  const searchValue = searchInput.value.toLowerCase().trim();
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchValue)
+  );
+
+  renderProducts(filteredProducts);
+});
