@@ -8,13 +8,17 @@
 </head>
 
 <body>
+  <h1 class="page-title">hyfBay</h1>
 
-  <h1>hyfBay</h1>
+  <form class="search-form">
+    <label for="searchInput" class="search-label">Search products</label>
+    <input type="text" id="searchInput" class="search-input" placeholder="Search products...">
+    <button type="submit" id="searchButton" class="search-button">
+      Search
+    </button>
+  </form>
 
-  <input type="text" id="searchInput" placeholder="Search products...">
-  <button id="searchButton">Search</button>
-
-  <ul id="productList"></ul>
+  <ul id="productList" class="product-list"></ul>
 
   <script src="hyfBayHelpers.js"></script>
   <script src="main.js"></script>

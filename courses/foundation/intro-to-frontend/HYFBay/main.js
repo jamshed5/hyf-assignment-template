@@ -1,29 +1,31 @@
-const products = getAvailableProducts(); // This comes from hyfBayHelpers.js
+const products = getAvailableProducts();
 
 const productList = document.querySelector("#productList");
 const searchInput = document.querySelector("#searchInput");
 const searchButton = document.querySelector("#searchButton");
 
-// Function to render products
 function renderProducts(productsToRender) {
   productList.innerHTML = "";
 
   productsToRender.forEach((product) => {
     const li = document.createElement("li");
+    li.className = "product-item";
+
     li.innerHTML = `
-      <strong>${product.name}</strong>
-      <span>Price: ${product.price} kr</span>
-      <span>Rating: ${product.rating}</span>
+      <strong class="product-title">${product.name}</strong>
+      <span class="product-meta">Price: ${product.price} kr</span>
+      <span class="product-meta">Rating: ${product.rating}</span>
     `;
+
     productList.appendChild(li);
   });
 }
 
-// Initial render: display all products
 renderProducts(products);
 
-// Search functionality
-searchButton.addEventListener("click", () => {
+searchButton.addEventListener("click", (event) => {
+  event.preventDefault();
+
   const searchValue = searchInput.value.toLowerCase().trim();
 
   const filteredProducts = products.filter((product) =>

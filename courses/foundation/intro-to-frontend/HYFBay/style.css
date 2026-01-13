@@ -5,11 +5,12 @@ body {
   text-align: center;
 }
 
-h1 {
+.page-title {
   margin-bottom: 20px;
 }
 
-input {
+/* Search */
+.search-input {
   padding: 10px;
   width: 250px;
   border-radius: 8px;
@@ -17,7 +18,7 @@ input {
   margin-right: 10px;
 }
 
-button {
+.search-button {
   padding: 10px 15px;
   border-radius: 8px;
   border: 1px solid #000;
@@ -26,7 +27,8 @@ button {
   font-weight: bold;
 }
 
-ul {
+/* Product list */
+.product-list {
   list-style: none;
   padding: 0;
   margin-top: 30px;
@@ -35,7 +37,7 @@ ul {
   margin-right: auto;
 }
 
-li {
+.product-item {
   background: white;
   margin-bottom: 15px;
   padding: 15px;
@@ -44,13 +46,13 @@ li {
   text-align: left;
 }
 
-li strong {
+.product-title {
   display: block;
   font-size: 18px;
   margin-bottom: 5px;
 }
 
-li span {
+.product-meta {
   display: block;
   font-size: 14px;
   color: #333;
