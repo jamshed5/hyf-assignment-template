@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Update User</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="update-user.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>Update User</h2>
+    <form id="updateUserForm">
+      <label for="name">Name</label>
+      <input type="text" id="name" required>
+      <label for="email">Email</label>
+      <input type="email" id="email" required>
+      <button type="submit">Save</button>
+    </form>
+    <a class="back" href="/">← Back to Dashboard</a>
+  </div>
+
+  <script>
+    // 1. Get user ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('id');
+    console.log("id is :", userId)
+    
+    // 2. Load user data and pre-fill the form
+    async function loadUser() {
+      const response = await fetch(`/users/get/${userId}`);
+      const user = await response.json();
+      console.log(user)
+
+      document.getElementById('name').value = user.name;
+      document.getElementById('email').value = user.email;
+    }
+
+    // 3. Handle form submit
+    document.getElementById('updateUserForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      if (!name || !email) return alert("Please fill in all fields.");
+
+      await fetch(`/users/update/${userId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email })
+      });
+
+      window.location.href = '/'; // redirect to dashboard
+    });
+
+    // Load data when page opens
+    loadUser();
+  </script>
+
+</body>
+
+</html>
