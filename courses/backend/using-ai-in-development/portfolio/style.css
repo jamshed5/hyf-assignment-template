@@ -1,0 +1,262 @@
+/* ------------------------- BASE STYLES ------------------------- */
+body {
+    font-family: 'Verdana', Geneva, Tahoma, sans-serif;
+    margin: 0;
+    background-color: #0b1f3b;
+    /* darker, more elegant navy */
+    color: #d0dbe6;
+    /* soft off-white text */
+}
+
+h1 {
+    color: #f5f5f5;
+    font-size: 38px;
+    margin: 0.5em 0;
+}
+
+h2,
+h3 {
+    color: #f0f0f0;
+    margin: 0.3em 0;
+}
+
+p {
+    color: #c5d1e0;
+    /* softer paragraph color */
+    line-height: 1.6;
+    font-size: 18px;
+    margin-bottom: 1em;
+}
+
+span {
+    font-size: 13px;
+    color: #aab8c9;
+}
+
+/* HR Styling */
+hr {
+    border: none;
+    height: 1px;
+    background-color: #4f6f9f;
+    /* soft blue separator */
+    margin: 1.5em 0;
+}
+
+/* ------------------------- HEADER ------------------------- */
+header {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0b1f3b;
+    color: #fff;
+    padding: 1em 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    /* subtle shadow */
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    padding: 0;
+    margin: 0;
+}
+
+header nav ul li a:link {
+    color: #f5f5f5;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+header nav ul li a:hover {
+    background-color: #1a3a66;
+    color: #ffcc66;
+}
+
+/* ------------------------- ABOUT SECTION ------------------------- */
+.about_section {
+    background-image: linear-gradient(135deg, #0c264f, #0b1f3b);
+    padding: 2% 0 1% 0;
+}
+
+.about_container {
+    width: 80%;
+    margin: auto;
+}
+
+.about_container h1,
+.about_container p {
+    width: 70%;
+}
+
+.about_container ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 2%;
+    display: flex;
+    gap: 10px;
+}
+
+.about_container ul li a {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.about_container ul li a:hover {
+    background-color: #1a3a66;
+    transform: scale(1.1);
+}
+
+/* ------------------------- PROJECTS SECTION ------------------------- */
+.projects_section {
+    width: 80%;
+    margin: 2% auto 0 auto;
+}
+
+.projects_section button {
+    margin-bottom: 1%;
+    margin-right: 1%;
+    background-color: #ffb347;
+    /* soft gradient color */
+    background-image: linear-gradient(135deg, #ffb347, #ffcc33);
+    color: #0b1f3b;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.projects_section button:hover {
+    background-image: linear-gradient(135deg, #ffcc33, #ffb347);
+    color: #0b1f3b;
+    transform: translateY(-2px);
+}
+
+/* Project container cards */
+.projects_container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2%;
+    padding: 1.5%;
+    background-image: linear-gradient(135deg, #0b1f3b, #102a50);
+    margin-bottom: 1%;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.projects_container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.projects_container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.projects_container div {
+    flex: 1;
+}
+
+.projects_container span {
+    margin-right: 4%;
+}
+
+.web_app {
+    color: #66ccff;
+    /* elegant accent color */
+}
+
+/* ------------------------- LEARNING SECTION ------------------------- */
+.learning_container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2%;
+    align-items: flex-start;
+}
+
+.education {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.education_detail {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    background-image: linear-gradient(135deg, #0b1f3b, #102a50);
+    padding: 5%;
+    margin-bottom: 3%;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
+    width: 100%;
+}
+
+.skill_box {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border: 1px solid #194f7d;
+    border-radius: 20px;
+    background-image: linear-gradient(135deg, #0b1f3b, #102a50);
+    margin-bottom: 2%;
+    transition: all 0.3s ease;
+}
+
+.skill_box:hover {
+    background-image: linear-gradient(135deg, #1a3a66, #194f7d);
+    transform: scale(1.05);
+}
+
+.skill_box span {
+    font-size: 16px;
+    padding-left: 10px;
+}
+
+/* ------------------------- RESPONSIVE ------------------------- */
+@media (max-width: 768px) {
+
+    .about_container h1,
+    p {
+        width: 100%;
+    }
+
+    .projects_container {
+        flex-wrap: wrap;
+    }
+
+    .projects_container img {
+        width: 100%;
+    }
+
+    .learning_container {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .skills {
+        width: 100%;
+    }
+
+    .education {
+        width: 100%;
+    }
+}

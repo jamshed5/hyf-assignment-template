@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jamshed Ali - Front End Developer Portfolio">
+    <link rel="stylesheet" href="style.css">
+    <title>Jamshed Ali | Front End Developer</title>
+</head>
+
+<body>
+
+    <header>
+        <h3>JAMSHED</h3>
+        <nav>
+            <ul>
+                <li>Projects</li>
+                <li>Contact</li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="about_section">
+            <div class="about_container">
+                <img src="images/profile.png" alt="Profile picture of Jamshed Ali" width="15%">
+                <h1>Hi, I'm Jamshed Ali. front end developer.</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae culpa id fugit cupiditate reprehenderit
+                    obcaecati in, dignissimos quasi, corrupti veniam numquam. Nobis exercitationem amet deserunt unde!
+                    Animi iusto nesciunt quis.</p>
+                <ul>
+                    <li><a href="#" target="_blank" rel="noopener noreferrer"><img src="images/linkedin.png"
+                                alt="LinkedIn icon" width="30" height="30"></a></li>
+                    <li><a href="#" target="_blank" rel="noopener noreferrer"><img src="images/linkedin.png"
+                                alt="LinkedIn icon" width="30" height="30"></a></li>
+                    <li><a href="#" target="_blank" rel="noopener noreferrer"><img src="images/linkedin.png"
+                                alt="LinkedIn icon" width="30" height="30"></a></li>
+                    <li><a href="#" target="_blank" rel="noopener noreferrer"><img src="images/linkedin.png"
+                                alt="LinkedIn icon" width="30" height="30"></a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="projects_section">
+            <div>
+                <button id="projectsBtn" type="button">DEVELOPMENT - PROJECTS</button>
+                <button id="learningBtn" type="button">DEVELOPMENT - LEARNING</button>
+                <hr>
+            </div>
+
+            <div>
+                <div id="projects" class="development">
+                    <!-- Projects -->
+                    <div class="projects_container">
+                        <img src="images/project_1.png" alt="Screenshot of Project 1" class="responsive_image">
+                        <div>
+                            <span class="web_app">WEB APP</span>
+                            <h2>This is Project Title</h2>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam illo obcaecati vel rem
+                                aliquid eius eaque ex est doloremque reprehenderit, amet, delectus cupiditate, ipsam
+                                animi sit ducimus eum ad iure?</p>
+                            <span>HTML</span><span>CSS</span><span>FIGMA</span>
+                            <p><button type="button">See more</button></p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="projects_container">
+                        <img src="images/project_1.png" alt="Screenshot of Project 2" class="responsive_image">
+                        <div>
+                            <span class="web_app">WEB APP</span>
+                            <h2>This is Project Title</h2>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam illo obcaecati vel rem
+                                aliquid eius eaque ex est doloremque reprehenderit, amet, delectus cupiditate, ipsam
+                                animi sit ducimus eum ad iure?</p>
+                            <span>HTML</span><span>CSS</span><span>FIGMA</span>
+                            <p><button type="button">See more</button></p>
+                        </div>
+                    </div>
+
+                    <div class="projects_container">
+                        <img src="images/project_1.png" alt="Screenshot of Project 3" class="responsive_image">
+                        <div>
+                            <span class="web_app">WEB APP</span>
+                            <h2>This is Project Title</h2>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam illo obcaecati vel rem
+                                aliquid eius eaque ex est doloremque reprehenderit, amet, delectus cupiditate, ipsam
+                                animi sit ducimus eum ad iure?</p>
+                            <span>HTML</span><span>CSS</span><span>FIGMA</span>
+                            <p><button type="button">See more</button></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learning -->
+                <div id="learning" class="development" style="display:none">
+                    <div class="learning_container">
+                        <div class="education">
+                            <div class="education_detail">
+                                <img src="images/profile.png" alt="Hack Your Future logo" width="50" height="50">
+                                <h3>Hack your future copenhagen</h3>
+                                <span>Copenhagen, Denmark • 2025 – Current</span>
+                                <p>Full Stack development</p>
+                            </div>
+                        </div>
+
+                        <div class="skills">
+                            <div class="skill_box"><img src="images/skill.png" alt="HTML skill icon"><span>HTML</span>
+                            </div>
+                            <div class="skill_box"><img src="images/skill.png" alt="CSS skill icon"><span>CSS</span>
+                            </div>
+                            <div class="skill_box"><img src="images/skill.png" alt="HTML skill icon"><span>HTML</span>
+                            </div>
+                            <div class="skill_box"><img src="images/skill.png" alt="CSS skill icon"><span>CSS</span>
+                            </div>
+                            <div class="skill_box"><img src="images/skill.png" alt="HTML skill icon"><span>HTML</span>
+                            </div>
+                            <div class="skill_box"><img src="images/skill.png" alt="CSS skill icon"><span>CSS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        // JS to toggle Projects / Learning tabs
+        const projectsBtn = document.getElementById('projectsBtn');
+        const learningBtn = document.getElementById('learningBtn');
+        const projects = document.getElementById('projects');
+        const learning = document.getElementById('learning');
+
+        projectsBtn.addEventListener('click', () => {
+            projects.style.display = 'block';
+            learning.style.display = 'none';
+        });
+
+        learningBtn.addEventListener('click', () => {
+            projects.style.display = 'none';
+            learning.style.display = 'block';
+        });
+    </script>
+
+</body>
+
+</html>
