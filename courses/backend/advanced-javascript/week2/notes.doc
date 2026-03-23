@@ -1,0 +1,18 @@
+.some()   -> Checks if at least one element satisfies the condition.
+             Returns a boolean (true/false) without returning the element itself.
+
+.find()   -> Finds the first element that matches the condition.
+             Returns the element object (or undefined if none found).
+
+.filter() -> Finds all elements that match the condition.
+             Returns an array of matching elements (can be empty).
+
+.map()    -> Transforms each element of an array into a new array.
+             Returns a new array with the transformed values.
+
+callback() -> A function passed as an argument to another function.
+              It can take parameters, run inside the main function,
+              and update dynamically depending on input.
+
+forEach() → Iterates over each element of an array and executes a 
+            given callback function for each element.
