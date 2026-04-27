@@ -1,0 +1,19 @@
+{
+  "name": "class24",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch app.js"
+  },
+  "keywords": [],
+  "author": "JamshedAli",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "express": "^5.2.1",
+    "knex": "^3.2.9",
+    "sqlite3": "^6.0.1"
+  }
+}
