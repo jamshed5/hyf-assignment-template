@@ -1,0 +1,665 @@
+# openapi: 3.0.0
+
+# info:
+#   title: Snippets API
+#   version: 1.0.0
+#   description: API for managing snippets and tags with JWT authentication
+
+# servers:
+#   - url: http://localhost:3000/api
+
+# tags:
+#   - name: Auth
+#   - name: Snippets
+#   - name: Tags
+
+# # =========================
+# # SECURITY
+# # =========================
+# components:
+#   securitySchemes:
+#     bearerAuth:
+#       type: http
+#       scheme: bearer
+#       bearerFormat: JWT
+
+#   schemas:
+
+#     Snippet:
+#       type: object
+#       properties:
+#         id:
+#           type: integer
+#         title:
+#           type: string
+#         contents:
+#           type: string
+#         user_id:
+#           type: integer
+#         is_private:
+#           type: boolean
+#         created_at:
+#           type: string
+
+#     SnippetInput:
+#       type: object
+#       required:
+#         - title
+#         - contents
+#       properties:
+#         title:
+#           type: string
+#         contents:
+#           type: string
+
+#     Tag:
+#       type: object
+#       properties:
+#         id:
+#           type: integer
+#         name:
+#           type: string
+
+#     TagInput:
+#       type: object
+#       required:
+#         - name
+#       properties:
+#         name:
+#           type: string
+
+# # =========================
+# # PATHS
+# # =========================
+# paths:
+
+#   # =========================
+#   # AUTH
+#   # =========================
+
+#   /auth/login:
+#     post:
+#       tags: [Auth]
+#       summary: Login and get JWT token
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               type: object
+#               required:
+#                 - email
+#                 - password
+#               properties:
+#                 email:
+#                   type: string
+#                 password:
+#                   type: string
+#             example:
+#               email: test@mail.com
+#               password: "123456"
+#       responses:
+#         "200":
+#           description: JWT token returned
+#         "401":
+#           description: Invalid credentials
+
+#   /auth/login-token:
+#     post:
+#       tags: [Auth]
+#       summary: Login and get DB-stored token
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               type: object
+#               required:
+#                 - email
+#                 - password
+#               properties:
+#                 email:
+#                   type: string
+#                 password:
+#                   type: string
+#             example:
+#               email: test@mail.com
+#               password: "123456"
+#       responses:
+#         "200":
+#           description: Random token returned and stored in DB
+#           content:
+#             application/json:
+#               schema:
+#                 type: object
+#                 properties:
+#                   token:
+#                     type: string
+#         "401":
+#           description: Invalid credentials
+
+#   # =========================
+#   # SNIPPETS
+#   # =========================
+
+#   /snippets:
+#     get:
+#       tags: [Snippets]
+#       summary: Get all snippets (public)
+#       parameters:
+#         - in: query
+#           name: sort
+#           schema:
+#             type: string
+#             example: "created_at desc"
+#       responses:
+#         "200":
+#           description: Success
+
+#     post:
+#       tags: [Snippets]
+#       summary: Create snippet (JWT AUTH REQUIRED)
+#       security:
+#         - bearerAuth: []
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: "#/components/schemas/SnippetInput"
+#             example:
+#               title: "My snippet"
+#               contents: "console.log('hello')"
+#       responses:
+#         "201":
+#           description: Created
+#         "401":
+#           description: Unauthorized
+
+#   /snippets/search:
+#     get:
+#       tags: [Snippets]
+#       summary: Search snippets
+#       parameters:
+#         - in: query
+#           name: q
+#           required: true
+#           schema:
+#             type: string
+#       responses:
+#         "200":
+#           description: Success
+
+#   /snippets/public:
+#     get:
+#       tags: [Snippets]
+#       summary: Get public snippets
+#       responses:
+#         "200":
+#           description: Success
+
+#   /snippets/{id}:
+#     get:
+#       tags: [Snippets]
+#       summary: Get snippet by ID
+#       parameters:
+#         - in: path
+#           name: id
+#           required: true
+#           schema:
+#             type: integer
+#       responses:
+#         "200":
+#           description: Success
+
+#     put:
+#       tags: [Snippets]
+#       summary: Update snippet (JWT AUTH REQUIRED)
+#       security:
+#         - bearerAuth: []
+#       parameters:
+#         - in: path
+#           name: id
+#           required: true
+#           schema:
+#             type: integer
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: "#/components/schemas/SnippetInput"
+#             example:
+#               title: "Updated title"
+#               contents: "updated code"
+#       responses:
+#         "200":
+#           description: Updated
+#         "401":
+#           description: Unauthorized
+
+#     delete:
+#       tags: [Snippets]
+#       summary: Delete snippet (JWT AUTH REQUIRED)
+#       security:
+#         - bearerAuth: []
+#       parameters:
+#         - in: path
+#           name: id
+#           required: true
+#           schema:
+#             type: integer
+#       responses:
+#         "200":
+#           description: Deleted
+#         "401":
+#           description: Unauthorized
+
+#   # =========================
+#   # TAGS
+#   # =========================
+
+#   /tags:
+#     get:
+#       tags: [Tags]
+#       summary: Get all tags
+#       responses:
+#         "200":
+#           description: Success
+
+#     post:
+#       tags: [Tags]
+#       summary: Create tag
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: "#/components/schemas/TagInput"
+#             example:
+#               name: "javascript"
+#       responses:
+#         "201":
+#           description: Created
+
+#   /tags/{id}:
+#     get:
+#       tags: [Tags]
+#       summary: Get tag by ID
+#       parameters:
+#         - in: path
+#           name: id
+#           required: true
+#           schema:
+#             type: integer
+#       responses:
+#         "200":
+#           description: Success
+
+#     put:
+#       tags: [Tags]
+#       summary: Update tag
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: "#/components/schemas/TagInput"
+#             example:
+#               name: "nodejs"
+#       responses:
+#         "200":
+#           description: Updated
+
+#     delete:
+#       tags: [Tags]
+#       summary: Delete tag
+#       responses:
+#         "200":
+#           description: Deleted
+openapi: 3.0.0
+
+info:
+  title: Snippets API
+  version: 1.0.0
+  description: API for managing snippets and tags with JWT + DB token authentication
+
+servers:
+  - url: http://localhost:3000/api
+
+tags:
+  - name: Auth
+  - name: Snippets
+  - name: Tags
+
+# =========================
+# SECURITY
+# =========================
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+
+    Snippet:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        contents:
+          type: string
+        user_id:
+          type: integer
+        is_private:
+          type: boolean
+        created_at:
+          type: string
+
+    SnippetInput:
+      type: object
+      required:
+        - title
+        - contents
+      properties:
+        title:
+          type: string
+        contents:
+          type: string
+
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+
+    TagInput:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+
+# =========================
+# PATHS
+# =========================
+paths:
+
+  # =========================
+  # AUTH
+  # =========================
+
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Login and get JWT token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+            example:
+              email: test@mail.com
+              password: "123456"
+      responses:
+        "200":
+          description: JWT token returned
+        "401":
+          description: Invalid credentials
+
+  /auth/login-token:
+    post:
+      tags: [Auth]
+      summary: Login and get DB-stored token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+            example:
+              email: test@mail.com
+              password: "123456"
+      responses:
+        "200":
+          description: Token created and stored in DB
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        "401":
+          description: Invalid credentials
+
+  /auth/logout-token:
+    post:
+      tags: [Auth]
+      summary: Logout DB token (invalidate session)
+      security:
+        - bearerAuth: []
+      description: Deletes token from database so it can no longer be used.
+      responses:
+        "200":
+          description: Successfully logged out
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Logged out successfully
+        "400":
+          description: Invalid authorization header
+        "401":
+          description: Unauthorized or invalid token
+        "404":
+          description: Token not found or already logged out
+        "500":
+          description: Server error
+
+  # =========================
+  # SNIPPETS
+  # =========================
+
+  /snippets:
+    get:
+      tags: [Snippets]
+      summary: Get all snippets (public)
+      parameters:
+        - in: query
+          name: sort
+          schema:
+            type: string
+            example: "created_at desc"
+      responses:
+        "200":
+          description: Success
+
+    post:
+      tags: [Snippets]
+      summary: Create snippet (JWT AUTH REQUIRED)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SnippetInput"
+            example:
+              title: "My snippet"
+              contents: "console.log('hello')"
+      responses:
+        "201":
+          description: Created
+        "401":
+          description: Unauthorized
+
+  /snippets/search:
+    get:
+      tags: [Snippets]
+      summary: Search snippets
+      parameters:
+        - in: query
+          name: q
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+
+  /snippets/public:
+    get:
+      tags: [Snippets]
+      summary: Get public snippets
+      responses:
+        "200":
+          description: Success
+
+  /snippets/{id}:
+    get:
+      tags: [Snippets]
+      summary: Get snippet by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Success
+
+    put:
+      tags: [Snippets]
+      summary: Update snippet (JWT AUTH REQUIRED)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SnippetInput"
+            example:
+              title: "Updated title"
+              contents: "updated code"
+      responses:
+        "200":
+          description: Updated
+        "401":
+          description: Unauthorized
+
+    delete:
+      tags: [Snippets]
+      summary: Delete snippet (JWT AUTH REQUIRED)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+        "401":
+          description: Unauthorized
+
+  # =========================
+  # TAGS
+  # =========================
+
+  /tags:
+    get:
+      tags: [Tags]
+      summary: Get all tags
+      responses:
+        "200":
+          description: Success
+
+    post:
+      tags: [Tags]
+      summary: Create tag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TagInput"
+            example:
+              name: "javascript"
+      responses:
+        "201":
+          description: Created
+
+  /tags/{id}:
+    get:
+      tags: [Tags]
+      summary: Get tag by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Success
+
+    put:
+      tags: [Tags]
+      summary: Update tag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TagInput"
+            example:
+              name: "nodejs"
+      responses:
+        "200":
+          description: Updated
+
+    delete:
+      tags: [Tags]
+      summary: Delete tag
+      responses:
+        "200":
+          description: Deleted
