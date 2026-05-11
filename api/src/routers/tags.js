@@ -45,15 +45,41 @@ router.post("/", async (req, res) => {
 // PUT /api/tags/:id
 //
 router.put("/:id", async (req, res) => {
-  const updated = await db("tags")
-    .where({ id: req.params.id })
-    .update(req.body);
+  try {
+    const id = Number(req.params.id);
 
-  if (!updated) {
-    return res.status(404).json({ error: "Tag not found" });
+    if (Number.isNaN(id)) {
+      return res.status(400).json({ error: "Invalid ID" });
+    }
+
+    if (!req.body?.name) {
+      return res.status(400).json({ error: "Name is required" });
+    }
+
+    const updated = await db("tags")
+      .where({ id })
+      .update({ name: req.body.name });
+
+    if (!updated) {
+      return res.status(404).json({ error: "Tag not found" });
+    }
+
+    res.json({ message: "Tag updated" });
+
+  } catch (err) {
+    console.error("PUT /tags error:", err);
+
+    // handle UNIQUE constraint error
+    if (err.code === "SQLITE_CONSTRAINT") {
+      return res.status(409).json({
+        error: "Tag name already exists"
+      });
+    }
+
+    return res.status(500).json({
+      error: "Internal server error"
+    });
   }
-
-  res.json({ message: "Tag updated" });
 });
 
 //

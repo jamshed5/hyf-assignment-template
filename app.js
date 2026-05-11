@@ -3,18 +3,35 @@ import db from "./api/src/db/db_connection.js";
 
 import snippetsRouter from "./api/src/routers/snippets.js";
 import tagsRouter from "./api/src/routers/tags.js";
-import usersRouter from "./api/src/routers/users.js"
+import authsRouter from "./api/src/routers/auth.js"
+
+import cors from "cors";
+// Swagger imports
+import swaggerUi from "swagger-ui-express";
+import YAML from "yamljs";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+
+app.use(cors()); 
+
 // Support parsing JSON requests
 app.use(express.json());
 
+// Load Swagger file
+const swaggerDocument = YAML.load("./api/src/openapi.yml");
+
 // connect router
+app.use("/api/auth", authsRouter);
 app.use("/api/snippets", snippetsRouter);
 app.use("/api/tags", tagsRouter);
-app.use("/api/users", usersRouter);
+
+// Swagger route
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument,
+  {
+     customSiteTitle: "My Snippets API",
+  }));
 
 
 app.get("/search", async (req, res) => {

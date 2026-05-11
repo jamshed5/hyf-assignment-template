@@ -1,157 +1,325 @@
-### =========================
-### SNIPPETS ROUTES
-### =========================
+# ### =========================
+# ### SNIPPETS ROUTES
+# ### =========================
 
-### GET all snippets (Done)
-GET http://localhost:3000/api/snippets
-
-
-### GET snippet by id (valid) (Done)
-GET http://localhost:3000/api/snippets/1
+# ### GET all snippets (Done)
+# GET http://localhost:3000/api/snippets
 
 
-### GET snippet by id (NOT FOUND test) (Done)
-GET http://localhost:3000/api/snippets/9999
+# ### GET snippet by id (valid) (Done)
+# GET http://localhost:3000/api/snippets/1
+
+# ### GET snippet by id (check validation) (Done)
+# GET http://localhost:3000/api/snippets/'1'
 
 
-### CREATE snippet (POST) (Done)
-POST http://localhost:3000/api/snippets
+# ### GET snippet by id (NOT FOUND test) (Done)
+# GET http://localhost:3000/api/snippets/9999
+
+
+# ### CREATE snippet (POST) (Done)
+# POST http://localhost:3000/api/snippets
+# Content-Type: application/json
+
+# {
+#   "title": "My first snippet",
+#   "contents": "console.log('hello world')",
+#   "user_id": 1
+# }
+
+# ### check validation 
+# POST http://localhost:3000/api/snippets
+# Content-Type: application/json
+
+# {
+#   "title": "",
+#   "contents": "check validation",
+#   "user_id": 1
+# }
+
+
+# ### UPDATE snippet (PUT) (Done)
+# PUT http://localhost:3000/api/snippets/11
+# Content-Type: application/json
+
+# {
+#   "title": "Updated Title",
+#   "contents": "Updated content"
+# }
+
+
+# ### UPDATE snippet (NOT FOUND) (Done)
+# PUT http://localhost:3000/api/snippets/9999
+# Content-Type: application/json
+
+# {
+#   "title": "Does not exist"
+# }
+
+
+# ### DELETE snippet (Done)
+# DELETE http://localhost:3000/api/snippets/15
+
+
+# ### DELETE snippet (NOT FOUND) (Done)
+# DELETE http://localhost:3000/api/snippets/9999
+
+
+
+# ### =========================
+# ### TAGS ROUTES
+# ### =========================
+
+# ### GET all tags (Done)
+# GET http://localhost:3000/api/tags 
+
+
+# ### GET tag by id (Done)
+# GET http://localhost:3000/api/tags/1 
+
+
+# ### GET tag NOT FOUND (Done)
+# GET http://localhost:3000/api/tags/9999
+
+
+# ### CREATE tag (Done)
+# POST http://localhost:3000/api/tags
+# Content-Type: application/json
+
+# {
+#   "name": "bala bala lang"
+# }
+
+
+# ### UPDATE tag (Done)
+# PUT http://localhost:3000/api/tags/11
+# Content-Type: application/json
+
+# {
+#   "name": "pascal"
+# }
+
+
+# ### UPDATE tag NOT FOUND (Done)
+# PUT http://localhost:3000/api/tags/9999
+# Content-Type: application/json
+
+# {
+#   "name": "Nothing"
+# }
+
+
+# ### DELETE tag (Done)
+# DELETE http://localhost:3000/api/tags/11
+
+
+# ### DELETE tag NOT FOUND (Done)
+# DELETE http://localhost:3000/api/tags/9999
+
+
+
+# ### =========================
+# ### SEARCH ROUTES
+# ### =========================
+
+# ### GET search (all) (Done)
+# GET http://localhost:3000/search
+
+
+# ### GET search with query (Done)
+# GET http://localhost:3000/search?q=react
+
+
+# ### GET search with another query (Done)
+# GET http://localhost:3000/search?q=sql
+
+
+# ### POST search (fields filter - tags) (Done)
+# POST http://localhost:3000/search
+# Content-Type: application/json
+
+# {
+#   "fields": {
+#     "tags": "React"
+#   }
+# }
+
+
+# ### GET search (ONLY q) (Done)
+# GET http://localhost:3000/search?q=node
+
+
+# ### POST only fields (Done)
+# POST http://localhost:3000/search
+# Content-Type: application/json
+
+# {
+#   "fields": {
+#     "tags": "react"
+#   }
+# }
+
+# ### ERROR (both q + fields)
+# POST http://localhost:3000/search?q=react
+# Content-Type: application/json
+
+# {
+#   "fields": {
+#     "tags": "react"
+#   }
+# }
+
+### NODE WEEK2 (TESTING)
+### ======================
+### BASE URL
+### ======================
+@baseUrl = http://localhost:3000/api/snippets
+
+
+### ======================
+### GET ALL (default)
+### ======================
+GET {{baseUrl}}
+
+
+### ======================
+### GET ALL (valid sort)
+### ======================
+GET {{baseUrl}}?sort=title desc
+
+
+### ======================
+### GET ALL (invalid sort format)
+### ======================
+GET {{baseUrl}}?sort=invalid
+
+
+### ======================
+### GET ALL (SQL injection attempt - Part A test)
+### ======================
+GET {{baseUrl}}?sort=created_at desc; DROP TABLE users;
+
+
+### ======================
+### SEARCH (valid)
+### ======================
+GET {{baseUrl}}/search?q=sql
+
+
+### ======================
+### SEARCH (missing query)
+### ======================
+GET {{baseUrl}}/search
+
+
+### ======================
+### PUBLIC FEED
+### ======================
+GET {{baseUrl}}/public
+
+
+### ======================
+### GET BY ID (valid)
+### ======================
+GET {{baseUrl}}/1
+
+
+### ======================
+### GET BY ID (invalid ID)
+### ======================
+GET {{baseUrl}}/abc
+
+
+### ======================
+### GET BY ID (not found)
+### ======================
+GET {{baseUrl}}/9999
+
+
+### ======================
+### CREATE SNIPPET (valid)
+### ======================
+POST {{baseUrl}}
 Content-Type: application/json
 
 {
-  "title": "New Snippet test",
-  "contents": "Hello from HTTP file",
+  "title": "Test snippet",
+  "contents": "console.log('hello')",
   "user_id": 1
 }
 
 
-### UPDATE snippet (PUT) (Done)
-PUT http://localhost:3000/api/snippets/11
+### ======================
+### CREATE SNIPPET (missing fields)
+### ======================
+POST {{baseUrl}}
 Content-Type: application/json
 
 {
-  "title": "Updated Title",
-  "contents": "Updated content"
+  "title": ""
 }
 
 
-### UPDATE snippet (NOT FOUND) (Done)
-PUT http://localhost:3000/api/snippets/9999
+### ======================
+### CREATE SNIPPET (invalid user_id)
+### ======================
+POST {{baseUrl}}
 Content-Type: application/json
 
 {
-  "title": "Does not exist"
+  "title": "Test",
+  "contents": "Hello",
+  "user_id": -1
 }
 
 
-### DELETE snippet (Done)
-DELETE http://localhost:3000/api/snippets/11
-
-
-### DELETE snippet (NOT FOUND) (Done)
-DELETE http://localhost:3000/api/snippets/9999
-
-
-
-### =========================
-### TAGS ROUTES
-### =========================
-
-### GET all tags (Done)
-GET http://localhost:3000/api/tags 
-
-
-### GET tag by id (Done)
-GET http://localhost:3000/api/tags/1 
-
-
-### GET tag NOT FOUND (Done)
-GET http://localhost:3000/api/tags/9999
-
-
-### CREATE tag (Done)
-POST http://localhost:3000/api/tags
+### ======================
+### UPDATE SNIPPET (valid)
+### ======================
+PUT {{baseUrl}}/1
 Content-Type: application/json
 
 {
-  "name": "bala bala lang"
+  "title": "Updated title"
 }
 
 
-### UPDATE tag (Done)
-PUT http://localhost:3000/api/tags/11
+### ======================
+### UPDATE SNIPPET (invalid ID)
+### ======================
+PUT {{baseUrl}}/abc
 Content-Type: application/json
 
 {
-  "name": "pascal"
+  "title": "Updated title"
 }
 
 
-### UPDATE tag NOT FOUND (Done)
-PUT http://localhost:3000/api/tags/9999
+### ======================
+### UPDATE SNIPPET (not found)
+### ======================
+PUT {{baseUrl}}/9999
 Content-Type: application/json
 
 {
-  "name": "Nothing"
+  "title": "Updated title"
 }
 
 
-### DELETE tag (Done)
-DELETE http://localhost:3000/api/tags/11
+### ======================
+### DELETE SNIPPET (valid)
+### ======================
+DELETE {{baseUrl}}/16
 
 
-### DELETE tag NOT FOUND (Done)
-DELETE http://localhost:3000/api/tags/9999
+### ======================
+### DELETE SNIPPET (invalid ID)
+### ======================
+DELETE {{baseUrl}}/abc
 
 
+### ======================
+### DELETE SNIPPET (not found)
+### ======================
+DELETE {{baseUrl}}/9999 
 
-### =========================
-### SEARCH ROUTES
-### =========================
-
-### GET search (all) (Done)
-GET http://localhost:3000/search
-
-
-### GET search with query (Done)
-GET http://localhost:3000/search?q=react
-
-
-### GET search with another query (Done)
-GET http://localhost:3000/search?q=sql
-
-
-### POST search (fields filter - tags) (Done)
-POST http://localhost:3000/search
-Content-Type: application/json
-
-{
-  "fields": {
-    "tags": "React"
-  }
-}
-
-
-### GET search (ONLY q) (Done)
-GET http://localhost:3000/search?q=node
-
-
-### POST only fields (Done)
-POST http://localhost:3000/search
-Content-Type: application/json
-
-{
-  "fields": {
-    "tags": "react"
-  }
-}
-
-### ERROR (both q + fields)
-POST http://localhost:3000/search?q=react
-Content-Type: application/json
-
-{
-  "fields": {
-    "tags": "react"
-  }
-}
